@@ -135,7 +135,11 @@ export default function Home() {
         address as string,
         { provider: provider }
       );
-      alert(`_hasSufficientFunds = ${_hasSufficientFunds}`);
+      if (!_hasSufficientFunds) {
+        alert(`_hasSufficientFunds = ${_hasSufficientFunds}`);
+        setStatus(APP_STATUS.REQUEST_CONFIRMED);
+        return;
+      }
       if (
         getPaymentNetworkExtension(_requestData)?.id ===
         Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT
@@ -443,6 +447,15 @@ export default function Home() {
           Submit
         </button>
       </form>
+      <br></br>
+      <h4>Get Testnet Funds</h4>
+      <ul>
+        <li>
+          Get FAU on Goerli by calling mint on Goerli Etherscan:
+          https://goerli.etherscan.io/address/0xba62bcfcaafc6622853cca2be6ac7d845bc0f2dc#writeContract#F4
+        </li>
+        <li>Get USDC on Goerli from: https://usdcfaucet.com/</li>
+      </ul>
       <br></br>
       <h4>Pay a request</h4>
       <br></br>
