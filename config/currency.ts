@@ -31,7 +31,7 @@ export const currencies = new Map<string, ICurrency>([
       value: "0x07865c6E87B9F70255377e024ace6630C1Eaa37F",
       chainId: 5,
       network: "goerli",
-      decimals: 18,
+      decimals: 6,
       type: Types.RequestLogic.CURRENCY.ERC20,
     },
   ],

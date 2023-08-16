@@ -5,6 +5,7 @@ import styles from "@/app/page.module.css";
 import { useState } from "react";
 import { parseUnits, zeroAddress } from "viem";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Link from "next/link";
 import {
   useWalletClient,
   useAccount,
@@ -82,12 +83,14 @@ export default function Home() {
       const paymentTx = await payRequest(_requestData, signer);
       await paymentTx.wait(2);
 
-      // TODO: Add Timeout
+      // Poll the request balance once every second until payment is detected
+      // TODO Add a timeout
       while (_requestData.balance?.balance! < _requestData.expectedAmount) {
         _requestData = await _request.refresh();
         alert(`balance = ${_requestData.balance?.balance}`);
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
+      alert(`payment detected!`);
       setRequestData(_requestData);
       setStatus(APP_STATUS.REQUEST_PAID);
     } catch (err) {
@@ -135,8 +138,8 @@ export default function Home() {
         address as string,
         { provider: provider }
       );
+      alert(`_hasSufficientFunds = ${_hasSufficientFunds}`);
       if (!_hasSufficientFunds) {
-        alert(`_hasSufficientFunds = ${_hasSufficientFunds}`);
         setStatus(APP_STATUS.REQUEST_CONFIRMED);
         return;
       }
@@ -159,7 +162,7 @@ export default function Home() {
       setStatus(APP_STATUS.APPROVED);
     } catch (err) {
       setStatus(APP_STATUS.REQUEST_CONFIRMED);
-      alert(err);
+      alert(JSON.stringify(err));
     }
   }
 
@@ -449,12 +452,20 @@ export default function Home() {
       </form>
       <br></br>
       <h4>Get Testnet Funds</h4>
+      <br></br>
       <ul>
         <li>
-          Get FAU on Goerli by calling mint on Goerli Etherscan:
-          https://goerli.etherscan.io/address/0xba62bcfcaafc6622853cca2be6ac7d845bc0f2dc#writeContract#F4
+          &#8226; Get FAU on Goerli using the{" "}
+          <Link href="https://erc20faucet.com/" target="_blank">
+            ERC20 Faucet by peppersec
+          </Link>
         </li>
-        <li>Get USDC on Goerli from: https://usdcfaucet.com/</li>
+        <li>
+          &#8226; Get USDC on Goerli using the{" "}
+          <Link href="https://usdcfaucet.com/" target="_blank">
+            USDC Faucet by blockpatron
+          </Link>
+        </li>
       </ul>
       <br></br>
       <h4>Pay a request</h4>
