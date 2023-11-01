@@ -225,6 +225,8 @@ export default function Home() {
         // Tip: Consider using rnf_invoice v0.0.3 format from @requestnetwork/data-format
         reason: reason,
         dueDate: dueDate,
+        builderId: "request-network",
+        createdWith: "CodeSandBox",
       },
       signer: {
         type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
