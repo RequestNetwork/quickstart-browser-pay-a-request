@@ -41,11 +41,11 @@ export const { chains, publicClient, webSocketPublicClient } = configureChains(
     moonbeam,
     goerli,
   ],
-  [publicProvider()]
+  [publicProvider()],
 );
 
-// Project ID from WalletConnect account: david.huntmateo@request.network
-const projectId = "9d9d6953cbcd80c6177a7402d79bfa8b";
+// For details about Wallet Connect Project ID: https://docs.walletconnect.com/cloud/relay#project-id
+const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "";
 
 const appName = "Request Network Quickstart: Create a request";
 
