@@ -10,7 +10,7 @@ import {
 import { configureChains, createConfig } from "wagmi";
 import {
   mainnet,
-  goerli,
+  sepolia,
   gnosis,
   polygon,
   celo,
@@ -26,10 +26,11 @@ import { publicProvider } from "wagmi/providers/public";
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
     mainnet,
+    sepolia,
     {
       ...gnosis,
       iconUrl:
-        "https://raw.githubusercontent.com/gnosischain/media-kit/main/Logos/01%20Chain/Background/SVG/LogomarkChain-Vertical-Cream_onMoss.svg",
+        "https://raw.githubusercontent.com/gnosischain/media-kit/main/Logos/Owl_Logo%20-%20Mark.svg",
     },
     polygon,
     optimism,
@@ -39,7 +40,6 @@ export const { chains, publicClient, webSocketPublicClient } = configureChains(
     celo,
     fantom,
     moonbeam,
-    goerli,
   ],
   [publicProvider()],
 );
