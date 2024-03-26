@@ -44,11 +44,11 @@ enum APP_STATUS {
 }
 
 export default function Home() {
-  const [storageChain, setStorageChain] = useState("5");
-  const [expectedAmount, setExpectedAmount] = useState("");
-  const [currency, setCurrency] = useState(
-    "5_0xBA62BCfcAaFc6622853cca2BE6Ac7d845BC0f2Dc"
+  const [storageChain, setStorageChain] = useState(
+    storageChains.keys().next().value,
   );
+  const [expectedAmount, setExpectedAmount] = useState("");
+  const [currency, setCurrency] = useState(currencies.keys().next().value);
   const [paymentRecipient, setPaymentRecipient] = useState("");
   const [payerIdentity, setPayerIdentity] = useState("");
   const [dueDate, setDueDate] = useState("");
@@ -77,7 +77,7 @@ export default function Home() {
 
     try {
       const _request = await requestClient.fromRequestId(
-        requestData!.requestId
+        requestData!.requestId,
       );
       let _requestData = _request.getData();
       const paymentTx = await payRequest(_requestData, signer);
@@ -129,14 +129,14 @@ export default function Home() {
 
     try {
       const _request = await requestClient.fromRequestId(
-        requestData!.requestId
+        requestData!.requestId,
       );
       const _requestData = _request.getData();
       alert(`Checking if payer has sufficient funds...`);
       const _hasSufficientFunds = await hasSufficientFunds(
         _requestData,
         address as string,
-        { provider: provider }
+        { provider: provider },
       );
       alert(`_hasSufficientFunds = ${_hasSufficientFunds}`);
       if (!_hasSufficientFunds) {
@@ -151,7 +151,7 @@ export default function Home() {
         const _hasErc20Approval = await hasErc20Approval(
           _requestData,
           address as string,
-          provider
+          provider,
         );
         alert(`_hasErc20Approval = ${_hasErc20Approval}`);
         if (!_hasErc20Approval) {
@@ -204,7 +204,7 @@ export default function Home() {
         },
         expectedAmount: parseUnits(
           expectedAmount as `${number}`,
-          currencies.get(currency)!.decimals
+          currencies.get(currency)!.decimals,
         ).toString(),
         payee: {
           type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
@@ -244,7 +244,7 @@ export default function Home() {
     try {
       setStatus(APP_STATUS.PERSISTING_TO_IPFS);
       const request = await requestClient.createRequest(
-        requestCreateParameters
+        requestCreateParameters,
       );
 
       setStatus(APP_STATUS.PERSISTING_ON_CHAIN);
@@ -457,13 +457,16 @@ export default function Home() {
       <br></br>
       <ul>
         <li>
-          &#8226; Get FAU on Goerli using the{" "}
-          <Link href="https://erc20faucet.com/" target="_blank">
-            ERC20 Faucet by peppersec
+          &#8226; Get FAU on Sepolia using the{" "}
+          <Link
+            href="https://sepolia.etherscan.io/address/0x370DE27fdb7D1Ff1e1BaA7D11c5820a324Cf623C#writeContract#F4"
+            target="_blank"
+          >
+            mint function on the FaucetToken contract by peppersec
           </Link>
         </li>
         <li>
-          &#8226; Get USDC on Goerli using the{" "}
+          &#8226; Get USDC on Sepolia using the{" "}
           <Link href="https://usdcfaucet.com/" target="_blank">
             USDC Faucet by blockpatron
           </Link>
@@ -483,8 +486,8 @@ export default function Home() {
         onClick={() =>
           switchNetwork?.(
             chains.find(
-              (chain) => chain.network === requestData?.currencyInfo.network
-            )?.id
+              (chain) => chain.network === requestData?.currencyInfo.network,
+            )?.id,
           )
         }
         className={styles.h9_w96}

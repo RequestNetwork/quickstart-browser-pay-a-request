@@ -7,11 +7,11 @@ interface StorageChain {
 // key: {chainId}
 export const storageChains = new Map<string, StorageChain>([
   [
-    "5",
+    "11155111",
     {
-      name: "Goerli",
+      name: "Sepolia",
       type: "testnet",
-      gateway: "https://goerli.gateway.request.network/",
+      gateway: "https://sepolia.gateway.request.network/",
     },
   ],
   [
@@ -19,7 +19,7 @@ export const storageChains = new Map<string, StorageChain>([
     {
       name: "Gnosis",
       type: "mainnet",
-      gateway: "https://xdai.gateway.request.network/",
+      gateway: "https://gnosis.gateway.request.network/",
     },
   ],
 ]);
